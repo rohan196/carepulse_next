@@ -28,7 +28,7 @@ const AppointmentForm = ({
   patientId: string;
   type: "create" | "cancel" | "schedule";
   appointment?: Appointment;
-  setOpen: (open: boolean) => void;
+  setOpen?: (open: boolean) => void;
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +41,7 @@ const AppointmentForm = ({
     defaultValues: {
       //To know whether there has been appointment already & if there is then update if needed - for cancel and schedule type
       primaryPhysician: appointment ? appointment.primaryPhysician : "",
-      schedule: appointment ? new Date(appointment?.schedule) : new Date(Date.now()),
+      schedule: appointment ? new Date(appointment?.schedule!) : new Date(Date.now()),
       reason: appointment ? appointment.reason : "",
       note: appointment ? appointment.note : "",
       // cancellationReason: appointment?.appointment.cancellationReason || "",
@@ -169,7 +169,7 @@ const AppointmentForm = ({
               name="schedule"
               label="Expected appointment date"
               showTimeSelect
-              dateFormat="MM/dd/yyyy - h:mm aa"
+              dateFormat="MM/dd/yyyy  -  h:mm aa"
             />
 
             <div className="flex flex-col gap-6 xl:flex-row">
